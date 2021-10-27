@@ -36,6 +36,8 @@ pub enum Error {
     Timeout,
     /// Executor body join error
     ExecutorBodyJoinError,
+    /// Given command was rejected
+    CommandRejected,
 }
 
 impl Error {
@@ -59,6 +61,7 @@ impl From<crate::NodeError> for ockam_core::Error {
             NoSuchProcessor(_) => Error::UnknownProcessor,
             WorkerExists(_) => Error::WorkerAddressTaken,
             RouterExists => Error::InternalIOFailure,
+            Rejected(_) => Error::CommandRejected,
         }
         .into()
     }
